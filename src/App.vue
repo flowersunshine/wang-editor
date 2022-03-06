@@ -16,7 +16,7 @@ import RichTextEditor from "./components/RichTextEditor.vue";
 export default class App extends Vue {}
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

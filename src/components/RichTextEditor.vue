@@ -12,6 +12,8 @@ import { keymap } from "prosemirror-keymap";
 import { baseKeymap } from "prosemirror-commands";
 import { menuBar } from "prosemirror-menu";
 import { buildMenuItems } from "prosemirror-example-setup";
+import { addListNodes } from 'prosemirror-schema-list';
+import { Schema } from 'prosemirror-model';
 
 @Options({
   props: {
@@ -20,13 +22,17 @@ import { buildMenuItems } from "prosemirror-example-setup";
 })
 export default class RichTextEditor extends Vue {
   mounted() {
+    const mySchema = new Schema({
+      nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+      marks: schema.spec.marks
+    });
     const state = EditorState.create({
-      schema,
+      schema: mySchema,
       plugins: [
         history(),
         keymap({ "ctrl-z": undo, "ctrl-shift-z": redo }),
         keymap(baseKeymap),
-        menuBar({ floating: false, content: buildMenuItems(schema).fullMenu }),
+        menuBar({ floating: true, content: buildMenuItems(mySchema).fullMenu }),
       ],
     });
     const view = new EditorView(this.$refs.richText as Node, {
@@ -48,26 +54,19 @@ export default class RichTextEditor extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-@import 'prosemirror-menu/style/menu.css';
 @import 'prosemirror-view/style/prosemirror.css';
-@import 'prosemirror-example-setup/style/style.css';
+@import 'prosemirror-menu/style/menu.css';
 
 .rich-text-container {
   border: 1px solid black;
   height: 100%;
 
-  .ProseMirror-example-setup-style hr {
-    padding: 2px 10px;
-    border: none;
-    margin: 1em 0;
+  &:deep(p) {
+    margin: 0;
   }
 
-  .ProseMirror-example-setup-style hr:after {
-    content: "";
-    display: block;
-    height: 1px;
-    background-color: silver;
-    line-height: 2px;
+  &:deep(.ProseMirror) {
+    border: 1px solid black;
   }
 
   .ProseMirror ul,
@@ -80,10 +79,6 @@ export default class RichTextEditor extends Vue {
     border-left: 3px solid #eee;
     margin-left: 0;
     margin-right: 0;
-  }
-
-  .ProseMirror-example-setup-style img {
-    cursor: default;
   }
 
   .ProseMirror-prompt {
