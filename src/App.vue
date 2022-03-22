@@ -5,15 +5,14 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
 import RichTextEditor from "./components/RichTextEditor.vue";
 
-@Options({
+export default defineComponent({
   components: {
-    RichTextEditor,
-  },
-})
-export default class App extends Vue {}
+    RichTextEditor
+  }
+});
 </script>
 
 <style scoped lang="less">

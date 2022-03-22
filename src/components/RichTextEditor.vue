@@ -1,72 +1,153 @@
 <template>
+  <div class="rich-text-menu-bar">
+    <div class="item" ref="strong">
+      <button
+        type="button"
+        :class="{ disabled: strongDisable }"
+        :disabled="strongDisable"
+        @click="commandStrong"
+      >
+        <i class="fa fa-bold" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="item-divider"></div>
+    <div class="item" ref="undoItem">
+      <button
+        type="button"
+        :class="{ disabled: strongDisable }"
+        :disabled="strongDisable"
+        @click="commandStrong"
+      >
+        <i class="fa fa-undo" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
   <div class="rich-text-container" ref="richText"></div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent, onMounted, ref } from "vue";
 import { schema } from "prosemirror-schema-basic";
 import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { undo, redo, history } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
-import { baseKeymap } from "prosemirror-commands";
-import { menuBar } from "prosemirror-menu";
-import { buildMenuItems } from "prosemirror-example-setup";
-import { addListNodes } from 'prosemirror-schema-list';
-import { Schema } from 'prosemirror-model';
+import { baseKeymap, toggleMark } from "prosemirror-commands";
+import { addListNodes } from "prosemirror-schema-list";
+import { Schema } from "prosemirror-model";
+import tippy from "tippy.js";
 
-@Options({
-  props: {
-    msg: String,
+export default defineComponent({
+  setup() {
+    const strong = ref(null);
+    const strongDisable = ref(false);
+
+    const undoItem = ref(null);
+
+    const richText = ref(null);
+
+    let editorView: EditorView;
+
+    onMounted(() => {
+      const mySchema = new Schema({
+        nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+        marks: schema.spec.marks,
+      });
+      const editorState = EditorState.create({
+        schema: mySchema,
+        plugins: [
+          history(),
+          keymap({ "ctrl-z": undo, "ctrl-shift-z": redo }),
+          keymap(baseKeymap),
+        ],
+      });
+      editorView = new EditorView(richText.value!, {
+        state: editorState,
+        dispatchTransaction: (transaction) => {
+          let newState = editorView.state.apply(transaction);
+          editorView.updateState(newState);
+
+          strongDisable.value = toggleMark(schema.marks.strong)(
+            editorView.state
+          );
+        },
+      });
+
+      tippy(strong.value!, {
+        content: "粗体",
+      });
+      tippy(undoItem.value!, {
+        content: '撤销'
+      });
+    });
+
+    const commandStrong = () => {
+      toggleMark(schema.marks.strong)(editorView.state, editorView.dispatch);
+      editorView.focus();
+    };
+
+    return { strong, richText, strongDisable, undoItem, commandStrong };
   },
-})
-export default class RichTextEditor extends Vue {
-  mounted() {
-    const mySchema = new Schema({
-      nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
-      marks: schema.spec.marks
-    });
-    const state = EditorState.create({
-      schema: mySchema,
-      plugins: [
-        history(),
-        keymap({ "ctrl-z": undo, "ctrl-shift-z": redo }),
-        keymap(baseKeymap),
-        menuBar({ floating: true, content: buildMenuItems(mySchema).fullMenu }),
-      ],
-    });
-    const view = new EditorView(this.$refs.richText as Node, {
-      state,
-      dispatchTransaction(transaction) {
-        console.log(
-          "Document size went from",
-          transaction.before.content.size,
-          "to",
-          transaction.doc.content.size
-        );
-        let newState = view.state.apply(transaction);
-        view.updateState(newState);
-      },
-    });
-  }
-}
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-@import 'prosemirror-view/style/prosemirror.css';
-@import 'prosemirror-menu/style/menu.css';
+<style lang="less">
+@import "prosemirror-view/style/prosemirror.css";
+@import "tippy.js/dist/tippy.css";
+@import "../assets/font-awesome-4.7.0/css/font-awesome.min.css";
+
+.rich-text-menu-bar {
+  display: flex;
+  padding: 2px;
+  border: 1px solid #ccc;
+
+  .item {
+    display: inline-flex;
+    height: 36px;
+    padding: 4px;
+    box-sizing: border-box;
+    min-width: 36px;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      cursor: pointer;
+      height: 100%;
+      border: none;
+      background-color: transparent;
+      font-size: 16px;
+      border-radius: 4px;
+
+      &:hover {
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .item-divider {
+    width: 1px;
+    background-color: #ccc;
+  }
+}
 
 .rich-text-container {
-  border: 1px solid black;
   height: 100%;
 
-  &:deep(p) {
+  & p {
     margin: 0;
   }
 
-  &:deep(.ProseMirror) {
-    border: 1px solid black;
+  & .ProseMirror {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 2px;
   }
 
   .ProseMirror ul,

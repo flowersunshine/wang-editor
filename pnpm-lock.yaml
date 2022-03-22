@@ -6,7 +6,6 @@ specifiers:
   '@types/prosemirror-commands': ^1.0.4
   '@types/prosemirror-history': ^1.0.3
   '@types/prosemirror-keymap': ^1.0.4
-  '@types/prosemirror-menu': ^1.0.6
   '@types/prosemirror-schema-basic': ^1.0.2
   '@types/prosemirror-schema-list': ^1.0.3
   '@types/prosemirror-state': ^1.2.8
@@ -21,38 +20,38 @@ specifiers:
   core-js: ^3.8.3
   eslint: ^7.32.0
   eslint-plugin-vue: ^8.0.3
+  i: ^0.3.7
   less: ^4.1.2
   less-loader: ^10.2.0
+  npm: ^8.5.5
   prosemirror-commands: ^1.2.1
-  prosemirror-example-setup: ^1.1.2
   prosemirror-history: ^1.2.0
   prosemirror-keymap: ^1.1.5
-  prosemirror-menu: ^1.1.4
   prosemirror-model: ^1.16.1
   prosemirror-schema-basic: ^1.1.2
   prosemirror-schema-list: ^1.1.6
   prosemirror-state: ^1.3.4
   prosemirror-view: ^1.23.7
   style-resources-loader: ^1.4.1
+  tippy.js: ^6.3.7
   typescript: ~4.5.5
   vue: ^3.2.13
-  vue-class-component: ^8.0.0-0
   vue-cli-plugin-style-resources-loader: ~0.1.5
 
 dependencies:
   core-js: registry.npmmirror.com/core-js/3.21.1
+  i: registry.npmmirror.com/i/0.3.7
+  npm: registry.npmmirror.com/npm/8.5.5
   prosemirror-commands: registry.npmmirror.com/prosemirror-commands/1.2.1
-  prosemirror-example-setup: registry.npmmirror.com/prosemirror-example-setup/1.1.2
   prosemirror-history: registry.npmmirror.com/prosemirror-history/1.2.0
   prosemirror-keymap: registry.npmmirror.com/prosemirror-keymap/1.1.5
-  prosemirror-menu: registry.npmmirror.com/prosemirror-menu/1.1.4
   prosemirror-model: registry.npmmirror.com/prosemirror-model/1.16.1
   prosemirror-schema-basic: registry.npmmirror.com/prosemirror-schema-basic/1.1.2
   prosemirror-schema-list: registry.npmmirror.com/prosemirror-schema-list/1.1.6
   prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
   prosemirror-view: registry.npmmirror.com/prosemirror-view/1.23.7
+  tippy.js: registry.npmmirror.com/tippy.js/6.3.7
   vue: registry.npmmirror.com/vue/3.2.31
-  vue-class-component: registry.npmmirror.com/vue-class-component/8.0.0-rc.1_vue@3.2.31
 
 devDependencies:
   '@babel/core': registry.npmmirror.com/@babel/core/7.17.5
@@ -60,7 +59,6 @@ devDependencies:
   '@types/prosemirror-commands': registry.npmmirror.com/@types/prosemirror-commands/1.0.4
   '@types/prosemirror-history': registry.npmmirror.com/@types/prosemirror-history/1.0.3
   '@types/prosemirror-keymap': registry.npmmirror.com/@types/prosemirror-keymap/1.0.4
-  '@types/prosemirror-menu': registry.npmmirror.com/@types/prosemirror-menu/1.0.6
   '@types/prosemirror-schema-basic': registry.npmmirror.com/@types/prosemirror-schema-basic/1.0.2
   '@types/prosemirror-schema-list': registry.npmmirror.com/@types/prosemirror-schema-list/1.0.3
   '@types/prosemirror-state': registry.npmmirror.com/@types/prosemirror-state/1.2.8
@@ -1681,6 +1679,12 @@ packages:
     version: 1.0.0-next.21
     dev: true
 
+  registry.npmmirror.com/@popperjs/core/2.11.4:
+    resolution: {integrity: sha512-q/ytXxO5NKvyT37pmisQAItCFqA7FD/vNb8dgaJy3/630Fsc+Mz9/9f2SziBoIZ30TJooXyTwZmhi1zjXmObYg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@popperjs/core/-/core-2.11.4.tgz}
+    name: '@popperjs/core'
+    version: 2.11.4
+    dev: false
+
   registry.npmmirror.com/@sideway/address/4.1.3:
     resolution: {integrity: sha512-8ncEUtmnTsMmL7z1YPB47kPUq7LpKWJNFPsRzHiIajGC5uXlWGn+AmkYPcHNl8S4tcEGx+cnORnNYaw2wvL+LQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@sideway/address/-/address-4.1.3.tgz}
     name: '@sideway/address'
@@ -1899,16 +1903,6 @@ packages:
     version: 1.0.4
     dependencies:
       '@types/prosemirror-commands': registry.npmmirror.com/@types/prosemirror-commands/1.0.4
-      '@types/prosemirror-model': registry.npmmirror.com/@types/prosemirror-model/1.16.1
-      '@types/prosemirror-state': registry.npmmirror.com/@types/prosemirror-state/1.2.8
-      '@types/prosemirror-view': registry.npmmirror.com/@types/prosemirror-view/1.23.1
-    dev: true
-
-  registry.npmmirror.com/@types/prosemirror-menu/1.0.6:
-    resolution: {integrity: sha512-teKfCPnnbYeB8DJiUIof4N0f8kyWbQP3BagEBRP6r+7/o0fiqHsnrex8GXuCSNNUqlpSpDQkJy52aq4jvzmDpg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/prosemirror-menu/-/prosemirror-menu-1.0.6.tgz}
-    name: '@types/prosemirror-menu'
-    version: 1.0.6
-    dependencies:
       '@types/prosemirror-model': registry.npmmirror.com/@types/prosemirror-model/1.16.1
       '@types/prosemirror-state': registry.npmmirror.com/@types/prosemirror-state/1.2.8
       '@types/prosemirror-view': registry.npmmirror.com/@types/prosemirror-view/1.23.1
@@ -3856,12 +3850,6 @@ packages:
       yaml: registry.npmmirror.com/yaml/1.10.2
     dev: true
 
-  registry.npmmirror.com/crelt/1.0.5:
-    resolution: {integrity: sha512-+BO9wPPi+DWTDcNYhr/W90myha8ptzftZT+LwcmUbbok0rcP/fequmFYCw8NMoH7pkAZQzU78b3kYrlua5a9eA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/crelt/-/crelt-1.0.5.tgz}
-    name: crelt
-    version: 1.0.5
-    dev: false
-
   registry.npmmirror.com/cross-spawn/5.1.0:
     resolution: {integrity: sha512-pTgQJ5KC0d2hcY8eyL1IzlBPYjTkyH72XRZPnLyKus2mBfNjQs3klqbJU2VILqZryAZUt9JOb3h/mWMy23/f5A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/cross-spawn/-/cross-spawn-5.1.0.tgz}
     name: cross-spawn
@@ -5396,6 +5384,13 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
+  registry.npmmirror.com/i/0.3.7:
+    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/i/-/i-0.3.7.tgz}
+    name: i
+    version: 0.3.7
+    engines: {node: '>=0.4'}
+    dev: false
+
   registry.npmmirror.com/iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.4.24.tgz}
     name: iconv-lite
@@ -6478,6 +6473,86 @@ packages:
       path-key: registry.npmmirror.com/path-key/3.1.1
     dev: true
 
+  registry.npmmirror.com/npm/8.5.5:
+    resolution: {integrity: sha512-a1vl26nokCNlD+my/iNYmOUPx/hpYR4ZyZk8gb7/A2XXtrPZf2gTSJOnVjS77jQS+BSfIVQpipZwXWCL0+5wzg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/npm/-/npm-8.5.5.tgz}
+    name: npm
+    version: 8.5.5
+    engines: {node: ^12.13.0 || ^14.15.0 || >=16}
+    hasBin: true
+    dev: false
+    bundledDependencies:
+      - '@isaacs/string-locale-compare'
+      - '@npmcli/arborist'
+      - '@npmcli/ci-detect'
+      - '@npmcli/config'
+      - '@npmcli/map-workspaces'
+      - '@npmcli/package-json'
+      - '@npmcli/run-script'
+      - abbrev
+      - ansicolors
+      - ansistyles
+      - archy
+      - cacache
+      - chalk
+      - chownr
+      - cli-columns
+      - cli-table3
+      - columnify
+      - fastest-levenshtein
+      - glob
+      - graceful-fs
+      - hosted-git-info
+      - ini
+      - init-package-json
+      - is-cidr
+      - json-parse-even-better-errors
+      - libnpmaccess
+      - libnpmdiff
+      - libnpmexec
+      - libnpmfund
+      - libnpmhook
+      - libnpmorg
+      - libnpmpack
+      - libnpmpublish
+      - libnpmsearch
+      - libnpmteam
+      - libnpmversion
+      - make-fetch-happen
+      - minipass
+      - minipass-pipeline
+      - mkdirp
+      - mkdirp-infer-owner
+      - ms
+      - node-gyp
+      - nopt
+      - npm-audit-report
+      - npm-install-checks
+      - npm-package-arg
+      - npm-pick-manifest
+      - npm-profile
+      - npm-registry-fetch
+      - npm-user-validate
+      - npmlog
+      - opener
+      - pacote
+      - parse-conflict-json
+      - proc-log
+      - qrcode-terminal
+      - read
+      - read-package-json
+      - read-package-json-fast
+      - readdir-scoped-modules
+      - rimraf
+      - semver
+      - ssri
+      - tar
+      - text-table
+      - tiny-relative-date
+      - treeverse
+      - validate-npm-package-name
+      - which
+      - write-file-atomic
+
   registry.npmmirror.com/nth-check/2.0.1:
     resolution: {integrity: sha512-it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nth-check/-/nth-check-2.0.1.tgz}
     name: nth-check
@@ -7374,43 +7449,6 @@ packages:
       prosemirror-transform: registry.npmmirror.com/prosemirror-transform/1.3.4
     dev: false
 
-  registry.npmmirror.com/prosemirror-dropcursor/1.4.0:
-    resolution: {integrity: sha512-6+YwTjmqDwlA/Dm+5wK67ezgqgjA/MhSDgaNxKUzH97SmeuWFXyLeDRxxOPZeSo7yTxcDGUCWTEjmQZsVBuMrQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-dropcursor/-/prosemirror-dropcursor-1.4.0.tgz}
-    name: prosemirror-dropcursor
-    version: 1.4.0
-    dependencies:
-      prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
-      prosemirror-transform: registry.npmmirror.com/prosemirror-transform/1.3.4
-      prosemirror-view: registry.npmmirror.com/prosemirror-view/1.23.7
-    dev: false
-
-  registry.npmmirror.com/prosemirror-example-setup/1.1.2:
-    resolution: {integrity: sha512-MTpIMyqk08jFnzxeRMCinCEMtVSTUtxKgQBGxfCbVe9C6zIOqp9qZZJz5Ojaad1GETySyuj8+OIHHvQsIaaaGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-example-setup/-/prosemirror-example-setup-1.1.2.tgz}
-    name: prosemirror-example-setup
-    version: 1.1.2
-    dependencies:
-      prosemirror-commands: registry.npmmirror.com/prosemirror-commands/1.2.1
-      prosemirror-dropcursor: registry.npmmirror.com/prosemirror-dropcursor/1.4.0
-      prosemirror-gapcursor: registry.npmmirror.com/prosemirror-gapcursor/1.2.2
-      prosemirror-history: registry.npmmirror.com/prosemirror-history/1.2.0
-      prosemirror-inputrules: registry.npmmirror.com/prosemirror-inputrules/1.1.3
-      prosemirror-keymap: registry.npmmirror.com/prosemirror-keymap/1.1.5
-      prosemirror-menu: registry.npmmirror.com/prosemirror-menu/1.1.4
-      prosemirror-schema-list: registry.npmmirror.com/prosemirror-schema-list/1.1.6
-      prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
-    dev: false
-
-  registry.npmmirror.com/prosemirror-gapcursor/1.2.2:
-    resolution: {integrity: sha512-7YzuRBbu9W7HGQde84kCHfIjaRLNcAdeijbgqrm/R9dsdTWkV+rrdcmic/sCc+bptiNpvjCEE+R6hrbT8zFQeQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-gapcursor/-/prosemirror-gapcursor-1.2.2.tgz}
-    name: prosemirror-gapcursor
-    version: 1.2.2
-    dependencies:
-      prosemirror-keymap: registry.npmmirror.com/prosemirror-keymap/1.1.5
-      prosemirror-model: registry.npmmirror.com/prosemirror-model/1.16.1
-      prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
-      prosemirror-view: registry.npmmirror.com/prosemirror-view/1.23.7
-    dev: false
-
   registry.npmmirror.com/prosemirror-history/1.2.0:
     resolution: {integrity: sha512-B9v9xtf4fYbKxQwIr+3wtTDNLDZcmMMmGiI3TAPShnUzvo+Rmv1GiUrsQChY1meetHl7rhML2cppF3FTs7f7UQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-history/-/prosemirror-history-1.2.0.tgz}
     name: prosemirror-history
@@ -7421,15 +7459,6 @@ packages:
       rope-sequence: registry.npmmirror.com/rope-sequence/1.3.2
     dev: false
 
-  registry.npmmirror.com/prosemirror-inputrules/1.1.3:
-    resolution: {integrity: sha512-ZaHCLyBtvbyIHv0f5p6boQTIJjlD6o2NPZiEaZWT2DA+j591zS29QQEMT4lBqwcLW3qRSf7ZvoKNbf05YrsStw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-inputrules/-/prosemirror-inputrules-1.1.3.tgz}
-    name: prosemirror-inputrules
-    version: 1.1.3
-    dependencies:
-      prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
-      prosemirror-transform: registry.npmmirror.com/prosemirror-transform/1.3.4
-    dev: false
-
   registry.npmmirror.com/prosemirror-keymap/1.1.5:
     resolution: {integrity: sha512-8SZgPH3K+GLsHL2wKuwBD9rxhsbnVBTwpHCO4VUO5GmqUQlxd/2GtBVWTsyLq4Dp3N9nGgPd3+lZFKUDuVp+Vw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-keymap/-/prosemirror-keymap-1.1.5.tgz}
     name: prosemirror-keymap
@@ -7437,17 +7466,6 @@ packages:
     dependencies:
       prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
       w3c-keyname: registry.npmmirror.com/w3c-keyname/2.2.4
-    dev: false
-
-  registry.npmmirror.com/prosemirror-menu/1.1.4:
-    resolution: {integrity: sha512-2ROsji/X9ciDnVSRvSTqFygI34GEdHfQSsK4zBKjPxSEroeiHHcdRMS1ofNIf2zM0Vpp5/YqfpxynElymQkqzg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prosemirror-menu/-/prosemirror-menu-1.1.4.tgz}
-    name: prosemirror-menu
-    version: 1.1.4
-    dependencies:
-      crelt: registry.npmmirror.com/crelt/1.0.5
-      prosemirror-commands: registry.npmmirror.com/prosemirror-commands/1.2.1
-      prosemirror-history: registry.npmmirror.com/prosemirror-history/1.2.0
-      prosemirror-state: registry.npmmirror.com/prosemirror-state/1.3.4
     dev: false
 
   registry.npmmirror.com/prosemirror-model/1.16.1:
@@ -8533,6 +8551,14 @@ packages:
     version: 0.3.0
     dev: true
 
+  registry.npmmirror.com/tippy.js/6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tippy.js/-/tippy.js-6.3.7.tgz}
+    name: tippy.js
+    version: 6.3.7
+    dependencies:
+      '@popperjs/core': registry.npmmirror.com/@popperjs/core/2.11.4
+    dev: false
+
   registry.npmmirror.com/to-fast-properties/2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz}
     name: to-fast-properties
@@ -8760,17 +8786,6 @@ packages:
     version: 1.1.2
     engines: {node: '>= 0.8'}
     dev: true
-
-  registry.npmmirror.com/vue-class-component/8.0.0-rc.1_vue@3.2.31:
-    resolution: {integrity: sha512-w1nMzsT/UdbDAXKqhwTmSoyuJzUXKrxLE77PCFVuC6syr8acdFDAq116xgvZh9UCuV0h+rlCtxXolr3Hi3HyPQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-class-component/-/vue-class-component-8.0.0-rc.1.tgz}
-    id: registry.npmmirror.com/vue-class-component/8.0.0-rc.1
-    name: vue-class-component
-    version: 8.0.0-rc.1
-    peerDependencies:
-      vue: ^3.0.0
-    dependencies:
-      vue: registry.npmmirror.com/vue/3.2.31
-    dev: false
 
   registry.npmmirror.com/vue-cli-plugin-style-resources-loader/0.1.5:
     resolution: {integrity: sha512-LluhjWTZmpGl3tiXg51EciF+T70IN/9t6UvfmgluJBqxbrb6OV9i7L5lTd+OKtcTeghDkhcBmYhtTxxU4w/8sQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-cli-plugin-style-resources-loader/-/vue-cli-plugin-style-resources-loader-0.1.5.tgz}
