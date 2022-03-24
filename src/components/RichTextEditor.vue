@@ -14,11 +14,21 @@
     <div class="item" ref="undoItem">
       <button
         type="button"
-        :class="{ disabled: strongDisable }"
-        :disabled="strongDisable"
-        @click="commandStrong"
+        :class="{ disabled: undoDisable }"
+        :disabled="undoDisable"
+        @click="commandUndo"
       >
         <i class="fa fa-undo" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="item" ref="redoItem">
+      <button
+        type="button"
+        :class="{ disabled: redoDisable }"
+        :disabled="redoDisable"
+        @click="commandRedo"
+      >
+        <i class="fa fa-repeat" aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -43,6 +53,10 @@ export default defineComponent({
     const strongDisable = ref(false);
 
     const undoItem = ref(null);
+    const undoDisable = ref(false);
+
+    const redoItem = ref(null);
+    const redoDisable = ref(false);
 
     const richText = ref(null);
 
@@ -53,6 +67,7 @@ export default defineComponent({
         nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
         marks: schema.spec.marks,
       });
+      console.log(schema.spec.marks);
       const editorState = EditorState.create({
         schema: mySchema,
         plugins: [
@@ -67,9 +82,15 @@ export default defineComponent({
           let newState = editorView.state.apply(transaction);
           editorView.updateState(newState);
 
-          strongDisable.value = toggleMark(schema.marks.strong)(
+          strongDisable.value = !toggleMark(schema.marks.strong)(
             editorView.state
           );
+
+          undoDisable.value = !undo(editorView.state);
+
+          redoDisable.value = !redo(editorView.state);
+
+          console.log(strongDisable.value, undoDisable.value);
         },
       });
 
@@ -77,7 +98,11 @@ export default defineComponent({
         content: "粗体",
       });
       tippy(undoItem.value!, {
-        content: '撤销'
+        content: "撤销",
+      });
+
+       tippy(redoItem.value!, {
+        content: "重做",
       });
     });
 
@@ -86,7 +111,28 @@ export default defineComponent({
       editorView.focus();
     };
 
-    return { strong, richText, strongDisable, undoItem, commandStrong };
+    const commandUndo = () => {
+      undo(editorView.state, editorView.dispatch);
+      editorView.focus();
+    };
+
+    const commandRedo = () => {
+      redo(editorView.state, editorView.dispatch);
+      editorView.focus();
+    }
+
+    return {
+      strong,
+      richText,
+      strongDisable,
+      undoItem,
+      undoDisable,
+      redoItem,
+      redoDisable,
+      commandStrong,
+      commandUndo,
+      commandRedo
+    };
   },
 });
 </script>
