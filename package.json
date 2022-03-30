@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "i": "^0.3.7",
-    "npm": "^8.5.5",
+    "element-plus": "^2.1.4",
     "prosemirror-commands": "^1.2.1",
     "prosemirror-history": "^1.2.0",
     "prosemirror-keymap": "^1.1.5",
