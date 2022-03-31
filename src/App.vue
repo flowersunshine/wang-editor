@@ -1,6 +1,6 @@
 <template>
   <div id="rich-text">
-    <RichTextEditor />
+    <RichTextEditor :doc="doc" @edit="logoEditData" />
   </div>
 </template>
 
@@ -11,6 +11,20 @@ import RichTextEditor from "./components/RichTextEditor.vue";
 export default defineComponent({
   components: {
     RichTextEditor
+  },
+  data() {
+    return {
+      doc: undefined
+    };
+  },
+  beforeMount() {
+    const content = localStorage.getItem('content');
+    this.doc = content ? JSON.parse(content) : undefined;
+  },
+  methods: {
+    logoEditData(data: any) {
+      localStorage.setItem('content', JSON.stringify(data));
+    }
   }
 });
 </script>

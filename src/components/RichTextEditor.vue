@@ -224,11 +224,15 @@ import { undo, redo, history } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
 import { baseKeymap, setBlockType, toggleMark } from "prosemirror-commands";
 import { addListNodes, splitListItem, wrapInList } from "prosemirror-schema-list";
-import { Schema } from "prosemirror-model";
+import { Schema, Node } from "prosemirror-model";
 import tippy from "tippy.js";
 
 export default defineComponent({
-  setup() {
+  props: {
+    doc: Object
+  },
+
+  setup(prop, { emit }) {
     const strongRef = ref(null);
     const strongDisable = ref(false);
 
@@ -476,6 +480,7 @@ export default defineComponent({
 
       const editorState = EditorState.create({
         schema: mySchema,
+        doc: prop.doc ? Node.fromJSON(mySchema, prop.doc) : null,
         plugins: [
           history(),
           keymap({ "ctrl-z": undo, "ctrl-shift-z": redo, 'Enter': splitListItem(mySchema.nodes.list_item) }),
@@ -487,6 +492,8 @@ export default defineComponent({
         dispatchTransaction: (transaction) => {
           let newState = editorView.state.apply(transaction);
           editorView.updateState(newState);
+
+          emit('edit', editorView.state.doc.toJSON());
 
           strongDisable.value = !toggleMark(schema.marks.strong)(
             editorView.state
@@ -590,7 +597,7 @@ export default defineComponent({
 
     const commandLineHeight = (value: string) => {
       lineHeight.value = value;
-      setBlockType(mySchema.nodes.paragraph, {lineHeight: value})(editorView.state, editorView.dispatch);
+      setBlockType(mySchema.nodes.paragraph, { lineHeight: value })(editorView.state, editorView.dispatch);
       editorView.focus();
     }
 
