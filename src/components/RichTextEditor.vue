@@ -1,5 +1,23 @@
 <template>
   <div class="rich-text-menu-bar">
+    <div class="item" ref="headRef">
+      <el-select
+        v-model="headLevel"
+        class="m-2"
+        placeholder="正文"
+        size="small"
+        style="width: 80px;"
+        :disabled="headDisable"
+        @change="commandHead"
+      >
+        <el-option
+          v-for="item in headOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+    </div>
     <div class="item" ref="strongRef">
       <button
         type="button"
@@ -233,6 +251,10 @@ export default defineComponent({
   },
 
   setup(prop, { emit }) {
+    const headRef = ref(null);
+    const headDisable = ref(false);
+    const headLevel = ref('');
+
     const strongRef = ref(null);
     const strongDisable = ref(false);
 
@@ -295,6 +317,33 @@ export default defineComponent({
 
     let editorView: EditorView;
     let mySchema: Schema;
+
+    const headOptions = [
+      {
+        label: 'H1',
+        value: 1
+      },
+      {
+        label: 'H2',
+        value: 2
+      },
+      {
+        label: 'H3',
+        value: 3
+      },
+      {
+        label: 'H4',
+        value: 4
+      },
+      {
+        label: 'H5',
+        value: 5
+      },
+      {
+        label: '正文',
+        value: ''
+      }
+    ];
 
     const fontFamilyOptions = [
       {
@@ -495,6 +544,7 @@ export default defineComponent({
 
           emit('edit', editorView.state.doc.toJSON());
 
+          headDisable.value = !setBlockType(mySchema.nodes.heading)(editorView.state);
           strongDisable.value = !toggleMark(schema.marks.strong)(
             editorView.state
           );
@@ -517,6 +567,9 @@ export default defineComponent({
         },
       });
 
+      tippy(headRef.value!, {
+        content: '标题'
+      });
       tippy(strongRef.value!, {
         content: "粗体",
       });
@@ -582,6 +635,16 @@ export default defineComponent({
         dispatch(state.tr.removeMark(from, to));
       }
       return true;
+    }
+
+    const commandHead = (value: string) => {
+      headLevel.value = value;
+      if (value) {
+        setBlockType(mySchema.nodes.heading, { level: value })(editorView.state, editorView.dispatch);
+      } else {
+        setBlockType(mySchema.nodes.paragraph)(editorView.state, editorView.dispatch);
+      }
+      editorView.focus();
     }
 
     const commandStrong = () => {
@@ -683,6 +746,10 @@ export default defineComponent({
 
     return {
       richTextRef,
+      headRef,
+      headDisable,
+      headLevel,
+      headOptions,
       strongRef,
       strongDisable,
       fontFamilyRef,
@@ -726,6 +793,7 @@ export default defineComponent({
       undoDisable,
       redoItemRef,
       redoDisable,
+      commandHead,
       commandStrong,
       commandfontFamily,
       commandLineHeight,
