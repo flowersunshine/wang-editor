@@ -208,6 +208,16 @@
         <i class="fa fa-align-right" aria-hidden="true"></i>
       </button>
     </div>
+    <div class="item" ref="divideRef">
+      <button
+        type="button"
+        :class="{ disabled: divideDisable }"
+        :disabled="divideDisable"
+        @click="commandDivide"
+      >
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
     <div class="item-divider"></div>
     <div class="item" ref="undoItemRef">
       <button
@@ -242,7 +252,7 @@ import { undo, redo, history } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
 import { baseKeymap, setBlockType, toggleMark } from "prosemirror-commands";
 import { addListNodes, splitListItem, wrapInList } from "prosemirror-schema-list";
-import { Schema, Node } from "prosemirror-model";
+import { Schema, Node, NodeType } from "prosemirror-model";
 import tippy from "tippy.js";
 
 export default defineComponent({
@@ -306,6 +316,9 @@ export default defineComponent({
 
     const rightAlignRef = ref(null);
     const rightAlignDisable = ref(false);
+
+    const divideRef = ref(null);
+    const divideDisable = ref(false);
 
     const undoItemRef = ref(null);
     const undoDisable = ref(false);
@@ -527,6 +540,15 @@ export default defineComponent({
         return true;
       }
 
+      const canInsert = (state: EditorState, nodeType: NodeType) => {
+        let $from = state.selection.$from
+        for (let d = $from.depth; d >= 0; d--) {
+          let index = $from.index(d)
+          if ($from.node(d).canReplaceWith(index, index, nodeType)) return true
+        }
+        return false
+      }
+
       const editorState = EditorState.create({
         schema: mySchema,
         doc: prop.doc ? Node.fromJSON(mySchema, prop.doc) : null,
@@ -561,6 +583,7 @@ export default defineComponent({
           leftAlignDisable.value = !canApplyAlignCommand(editorView.state);
           centerAlignDisable.value = !canApplyAlignCommand(editorView.state);
           rightAlignDisable.value = !canApplyAlignCommand(editorView.state);
+          divideDisable.value = !canInsert(editorView.state, mySchema.nodes.horizontal_rule);
 
           undoDisable.value = !undo(editorView.state);
           redoDisable.value = !redo(editorView.state);
@@ -617,6 +640,9 @@ export default defineComponent({
       });
       tippy(rightAlignRef.value!, {
         content: '右对齐'
+      });
+      tippy(divideRef.value!, {
+        content: '分割线'
       });
       tippy(undoItemRef.value!, {
         content: "撤销",
@@ -734,6 +760,11 @@ export default defineComponent({
       editorView.focus();
     }
 
+    const commandDivide = () => {
+      editorView.dispatch(editorView.state.tr.replaceSelectionWith(mySchema.nodes.horizontal_rule.create()));
+      editorView.focus();
+    }
+
     const commandUndo = () => {
       undo(editorView.state, editorView.dispatch);
       editorView.focus();
@@ -789,6 +820,8 @@ export default defineComponent({
       centerAlignDisable,
       rightAlignRef,
       rightAlignDisable,
+      divideRef,
+      divideDisable,
       undoItemRef,
       undoDisable,
       redoItemRef,
@@ -811,6 +844,7 @@ export default defineComponent({
       commandLeftAlign,
       commandCenterAlign,
       commandRightAlign,
+      commandDivide,
       commandUndo,
       commandRedo
     };
