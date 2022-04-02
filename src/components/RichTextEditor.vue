@@ -18,6 +18,16 @@
         />
       </el-select>
     </div>
+    <div class="item" ref="quoteRef">
+      <button
+        type="button"
+        :class="{ disabled: quoteDisable }"
+        :disabled="quoteDisable"
+        @click="commandQuote"
+      >
+        <i class="fa fa-quote-left" aria-hidden="true"></i>
+      </button>
+    </div>
     <div class="item" ref="strongRef">
       <button
         type="button"
@@ -250,7 +260,7 @@ import { EditorState, Transaction } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { undo, redo, history } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
-import { baseKeymap, setBlockType, toggleMark } from "prosemirror-commands";
+import { baseKeymap, setBlockType, toggleMark, wrapIn } from "prosemirror-commands";
 import { addListNodes, splitListItem, wrapInList } from "prosemirror-schema-list";
 import { Schema, Node, NodeType } from "prosemirror-model";
 import tippy from "tippy.js";
@@ -264,6 +274,9 @@ export default defineComponent({
     const headRef = ref(null);
     const headDisable = ref(false);
     const headLevel = ref('');
+
+    const quoteRef = ref(null);
+    const quoteDisable = ref(false);
 
     const strongRef = ref(null);
     const strongDisable = ref(false);
@@ -567,6 +580,7 @@ export default defineComponent({
           emit('edit', editorView.state.doc.toJSON());
 
           headDisable.value = !setBlockType(mySchema.nodes.heading)(editorView.state);
+          quoteDisable.value = !wrapIn(mySchema.nodes.blockquote)(editorView.state);
           strongDisable.value = !toggleMark(schema.marks.strong)(
             editorView.state
           );
@@ -592,6 +606,9 @@ export default defineComponent({
 
       tippy(headRef.value!, {
         content: '标题'
+      });
+      tippy(quoteRef.value!, {
+        content: '引用'
       });
       tippy(strongRef.value!, {
         content: "粗体",
@@ -670,6 +687,11 @@ export default defineComponent({
       } else {
         setBlockType(mySchema.nodes.paragraph)(editorView.state, editorView.dispatch);
       }
+      editorView.focus();
+    }
+
+    const commandQuote = () => {
+      wrapIn(mySchema.nodes.blockquote)(editorView.state, editorView.dispatch);
       editorView.focus();
     }
 
@@ -781,6 +803,8 @@ export default defineComponent({
       headDisable,
       headLevel,
       headOptions,
+      quoteRef,
+      quoteDisable,
       strongRef,
       strongDisable,
       fontFamilyRef,
@@ -827,6 +851,7 @@ export default defineComponent({
       redoItemRef,
       redoDisable,
       commandHead,
+      commandQuote,
       commandStrong,
       commandfontFamily,
       commandLineHeight,
